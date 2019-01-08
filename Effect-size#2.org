@@ -2,9 +2,9 @@
 
 * Effect size #2, difference in proportions
 *** background
-Of the children who avoided peanut, ~17%~ developed peanut allergy by the age 5
-years; Remarkably, only ~3%~ of the children who were randomized to eating the
-peanut snack developed allergy by age 5.
+Of the children who *avoided peanut*, ~17%~ developed peanut allergy by the age
+5 years; Remarkably, only ~3%~ of the children who were randomized to *eating
+the peanut* snack developed allergy by age 5.
 
 Therefore, in high-risk infants, sustained consumption of peanut beginning in
 the first 11 months of life was highly effective in preventing the development
@@ -37,7 +37,7 @@ percent.
 p1 = 0.03
 p2 = 0.17
 
-odds = p / ( 1- p )
+odds = p / ( 1 - p )
 
 o1 = 0.0309
 o2 = 0.2048
@@ -59,12 +59,12 @@ professor says that, if I can make everyone in th world use LOR, I will do it.
 
 *** The advantages of LOR
 
-   If you dive into information theory, LOR is a measure of information content
-   if you tell me what the treatment was, that'll tell me how to do a Bayesian
-   update about how much I should believe you get a peanut allergy and then add
-   up if you apply several different treatments that have long odds ratios of
-   one ,two and three. The total of all of those treatments is six at least if I
-   assume that they're independent.
+   If you dive into information theory, *LOR is a measure of information
+   content* if you tell me what the treatment was, that'll tell me how to do a
+   Bayesian update about how much I should believe you get a peanut allergy and
+   then add up if you apply several different treatments that have long odds
+   ratios of one ,two and three. The total of all of those treatments is six at
+   least if I assume that they're independent.
 
 *** Different express ways:
 
@@ -83,6 +83,7 @@ Tradoff from these ways:
 *** Odds vs. Probability
     https://www.youtube.com/watch?v=Vu4x2DKn12g
 
+    #+BEGIN_EXAMPLE
 .
 .                  # successes                    # you want
 .  probability = ---------------------------- = -------------------
@@ -97,6 +98,18 @@ Tradoff from these ways:
 .                  # unfavorable                  # you don't want
 . odds against = ---------------------------- = -------------------
 .                  # favorable                    # you want
+.
+.
+.
+.                           odd
+.  probability = ----------------------------
+.                         1 + odd
+.
+.
+.                       probability
+.         odds = ----------------------------
+.                     1 - probability
+.
 .
 
 eg.
@@ -120,18 +133,25 @@ eg.
 .       |     #     |                       5
 .       +-----------+                odd = --- = 5
 .                                           1
+
+    #+END_EXAMPLE
 *** TODO Odds and Bayes
 https://www.youtube.com/watch?v=Ql2jEJ-6e-Y
 
 Log Odds Rate is the Bayes factor; Bayes factor is a measure of the information content.
 
-.
-.
-|               | Disease Positive | Disease Negative |
-|---------------+------------------+------------------|
-| Test Positive | A:true pos       | B: false pos     |
-| Test Negative | C:true neg       | D: true neg      |
+|               | Disease Positive | Disease Negative |     |
+|---------------+------------------+------------------+-----|
+| Test Positive | A:true pos       | B: false pos     | LR+ |
+| Test Negative | C:false neg      | D: true neg      | LR- |
+|---------------+------------------+------------------+-----|
+|               | sensitivity      | specificity      |     |
 
+sensitivity 和 specificity : 某种 *真实情况* 被正确捕捉的概率(compare to whole).
+
+LR+ 和 LR- : 某种 *测试结果* 正确(错误)反应现实的比例(compare to reverse).
+
+#+BEGIN_EXAMPLE
 .
 .            P(B|A) * P(A)
 .  P(A|B) = ------------------
@@ -152,29 +172,28 @@ Log Odds Rate is the Bayes factor; Bayes factor is a measure of the information 
 .                                1 - specificity
 .
 .
+.
 .  LR-                           1 - sensitivity
 .  Negative Likelihood Ratio = --------------------
 .                                   specificity
 .
 .
-.
 .  Bayes Theorem:
 .  Post-test odds = Pre-test odds * LR
 .
+#+END_EXAMPLE
 
 eg.
-|               | Disease Positive | Disease Negative |
-|---------------+------------------+------------------|
-| Test Positive | A:true pos       | B: false pos     |
-| Test Negative | C:true neg       | D: true neg      |
 
-|               |  Disease Positive | Disease Negative  |
-|---------------+-------------------+-------------------|
-| Test Positive |               610 | 13,212            |
-| Test Negative |               118 | 127,344           |
-|---------------+-------------------+-------------------|
-|               | sensitivity=83.8% | specificity=90.6% |
+|               |  Disease Positive | Disease Negative  |          |
+|---------------+-------------------+-------------------+----------|
+| Test Positive |               610 | 13,212            | LR+=8.9  |
+| Test Negative |               118 | 127,344           | LR-=0.18 |
+|---------------+-------------------+-------------------+----------|
+|               | sensitivity=83.8% | specificity=90.6% |          |
 
+
+#+BEGIN_EXAMPLE
 .
 .  LR+                             sensitivity         0.838
 .  Positive Likelihood Ratio = -------------------- = -------- = 8.9
@@ -190,7 +209,7 @@ eg.
 .    Odds = --------- = 0.005
 .             0.995
 .
-.  In statistics, pretest odds is almost the same with the prtest probability.
+.  In statistics, pretest odds is almost the same with the pretest probability.
 
 .  Bayes Theorem:
 .  Post-test odds = Pre-test odds * LR+
@@ -219,3 +238,16 @@ eg.
 .  means that if you have a +ve result of cancer test, you ALMOST have a probability of 79% to really get a cancer.
 .
 .  This is why mammograms is an important tool.
+.
+.  Now, for the same situation, lets see what a negative mammogram would have meant for
+.  this woman.
+.
+.  Bayes Theorem:
+.  Post-test odds = Pre-test odds * LR-
+.                 = 0.43 * 0.18
+.                 = 0.077
+.     probability = Odds/(1+Odds)
+.                 = 0.077/(1+0.077)
+.                 = 7.1%
+
+#+END_EXAMPLE
